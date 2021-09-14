@@ -12,6 +12,7 @@
       <button @click="update">更新</button>
     </div>
     <script>
+      debugger
       Vue.directive('loading', {
         update(el, binding, vnode) {
           if (binding.value) {
@@ -32,14 +33,14 @@
           } else {
             document.body.removeChild(document.getElementById('loading'))
           }
-        }
+        },
       })
       new Vue({
         el: '#root',
         data() {
           return {
             isLoading: false,
-            data: ''
+            data: '',
           }
         },
         methods: {
@@ -49,8 +50,8 @@
               this.data = '用户数据'
               this.isLoading = false
             }, 3000)
-          }
-        }
+          },
+        },
       })
     </script>
   </body>

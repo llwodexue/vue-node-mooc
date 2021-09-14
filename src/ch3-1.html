@@ -19,7 +19,7 @@
           }
         },
         created() {
-          this.$on('my_events', this.handleEvents)
+          this.$on(['my_events', 'my_events2'], this.handleEvents)
         },
         methods: {
           handleEvents(e) {
