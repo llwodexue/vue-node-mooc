@@ -175,7 +175,7 @@ $emit 传入一个参数事件名称 `event`
 
 2. 因为 `type` 是 directive 而不是 component，definition 是一个对象，条件就都不会走到
 
-   可以发现这里不仅可以使用对象还可以传递 update 或 bind 函数，里面对其进行了处理： `definition = { bind: definition, update: definition }` 
+   可以发现这里不仅可以使用对象还可以传递函数，它会默认把这个函数添加到 bind 和 update 里面： `definition = { bind: definition, update: definition }` 
 
 3. 在 Vue 实例的 options 的 directives 上挂载 loading 方法
 
@@ -185,8 +185,51 @@ $emit 传入一个参数事件名称 `event`
 
 ![](https://gitee.com/lilyn/pic/raw/master/js-img/directive%E6%BA%90%E7%A0%812.png)
 
+## component
+
+> [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch3-3.html)
+
+```html
+<html>
+  <head>
+    <title>Vue.component 用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <Test :msg="message"></Test>
+    </div>
+    <script>
+      Vue.component('Test', {
+        template: '<div>{{msg}}</div>',
+        props: {
+          msg: {
+            type: String,
+            default: 'default message'
+          }
+        }
+      })
+      new Vue({
+        el: '#root',
+        data() {
+          return {
+            message: "Test Component"
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
+```
+
+compoent 跟 directive 一样首先会进入一个匿名函数
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/component%E6%BA%90%E7%A0%81.png)
+
 ## 挂载
 
 - $on 的方法会挂载到 `vm._events` 上去
 - directive 的方法会挂载到 `vm.options` 上去
+
+[https://iseeu.blog.csdn.net/article/details/105349962](https://iseeu.blog.csdn.net/article/details/105349962)
 
