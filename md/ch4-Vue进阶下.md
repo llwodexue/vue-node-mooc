@@ -2,11 +2,11 @@
 
 在学 provide inject 之前，最好先知道 new Vue 都做了什么
 
-- Vue 的庐山真面目就在此，实际上就是一个用 Function 实现的累，我们只能通过 `new Vue` 去实例化它
+- Vue 的庐山真面目就在此，实际上就是一个用 Function 实现的类，我们只能通过 `new Vue` 去实例化它
 
 ![](https://gitee.com/lilyn/pic/raw/master/js-img/newVue%E6%BA%90%E7%A0%811.png)
 
-- 在`this._init(options)` 执行之前，除了给它的原型 prototype 扩展方法，还会给 Vue 这个对象扩展全局静态方法（set、delete、nextTick... ASSET_TYPES[component|directive|filter] 和 _base(Vue 实例) -> 挂载到 Vue.options），这部分代码搜索 `initGlobalAPI`，这里就不举例了
+- 在`this._init(options)` 执行之前，除了给它的原型 prototype 扩展方法，还会给 Vue 这个对象扩展全局静态方法（set、delete、nextTick... -> 挂载到 Vue ASSET_TYPES[component|directive|filter] 和 _base(Vue 实例) -> 挂载到 Vue.options），这部分代码搜索 `initGlobalAPI`，这里就不举例了
 - Vue 初始化主要干了如下几件事情：
   1. 合并配置（options）
   2. 初始化生命周期（initLifecycle）、初始化事件中心（initEvents）、初始化渲染（initRender）在 `beforeCreate` 之前
@@ -89,4 +89,36 @@ provide inject 为了提高更好的跨组件解决方案
    获取组件名称：通过 `this.$options._componentTag` 
 
 ![](https://gitee.com/lilyn/pic/raw/master/js-img/provide%E6%BA%90%E7%A0%811.png)
+
+## filter
+
+> [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-2.html)
+
+
+
+## watch
+
+> [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-3.html)
+
+
+
+## class style
+
+> [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-4.html)
+
+
+
+## Vue.observe
+
+> [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-5.html)
+
+
+
+## slot
+
+> [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-6.html)
+
+
+
+[https://iseeu.blog.csdn.net/article/details/105363274](https://iseeu.blog.csdn.net/article/details/105363274)
 
