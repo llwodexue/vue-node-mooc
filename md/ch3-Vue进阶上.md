@@ -5,38 +5,32 @@
 $emit 和 $on 主要负责事件的定义和消费，以实现逻辑的解耦
 
 ```html
-<html>
-  <head>
-    <title>$emit 和 $on</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  </head>
-  <body>
-    <div id="root">
-      <button @click="boost">触发事件</button>
-    </div>
-    <script>
-      new Vue({
-        el: '#root',
-        data() {
-          return {
-            message: 'hello vue',
-          }
+<body>
+  <div id="root">
+    <button @click="boost">触发事件</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          message: 'hello vue',
+        }
+      },
+      created() {
+        this.$on(['my_events', 'my_events2'], this.handleEvents)
+      },
+      methods: {
+        handleEvents(e) {
+          console.log(this.message, e)
         },
-        created() {
-          this.$on('my_events', this.handleEvents)
+        boost() {
+          this.$emit('my_events', 'my params')
         },
-        methods: {
-          handleEvents(e) {
-            console.log(this.message, e)
-          },
-          boost() {
-            this.$emit('my_events', 'my params')
-          },
-        },
-      })
-    </script>
-  </body>
-</html>
+      },
+    })
+  </script>
+</body>
 ```
 
 ### $on
@@ -113,60 +107,54 @@ $emit 传入一个参数事件名称 `event`
 - `vnode`：Vue 编译生成的虚拟节点
 
 ```html
-<html>
-  <head>
-    <title>directive 用法</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  </head>
-  <body>
-    <div id="root">
-      <div v-loading="isLoading">{{data}}</div>
-      <button @click="update">更新</button>
-    </div>
-    <script>
-      Vue.directive('loading', {
-        update(el, binding, vnode) {
-          if (binding.value) {
-            const div = document.createElement('div')
-            div.innerText = '加载中...'
-            div.setAttribute('id', 'loading')
-            div.style.position = 'absolute'
-            div.style.left = 0
-            div.style.top = 0
-            div.style.width = '100%'
-            div.style.height = '100%'
-            div.style.display = 'flex'
-            div.style.justifyContent = 'center'
-            div.style.alignItems = 'center'
-            div.style.color = 'white'
-            div.style.background = 'rgba(0, 0, 0, .7)'
-            document.body.append(div)
-          } else {
-            document.body.removeChild(document.getElementById('loading'))
-          }
+<body>
+  <div id="root">
+    <div v-loading="isLoading">{{data}}</div>
+    <button @click="update">更新</button>
+  </div>
+  <script>
+    Vue.directive('loading', {
+      update(el, binding, vnode) {
+        if (binding.value) {
+          const div = document.createElement('div')
+          div.innerText = '加载中...'
+          div.setAttribute('id', 'loading')
+          div.style.position = 'absolute'
+          div.style.left = 0
+          div.style.top = 0
+          div.style.width = '100%'
+          div.style.height = '100%'
+          div.style.display = 'flex'
+          div.style.justifyContent = 'center'
+          div.style.alignItems = 'center'
+          div.style.color = 'white'
+          div.style.background = 'rgba(0, 0, 0, .7)'
+          document.body.append(div)
+        } else {
+          document.body.removeChild(document.getElementById('loading'))
         }
-      })
-      new Vue({
-        el: '#root',
-        data() {
-          return {
-            isLoading: false,
-            data: ''
-          }
+      },
+    })
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          isLoading: false,
+          data: '',
+        }
+      },
+      methods: {
+        update() {
+          this.isLoading = true
+          setTimeout(() => {
+            this.data = '用户数据'
+            this.isLoading = false
+          }, 3000)
         },
-        methods: {
-          update() {
-            this.isLoading = true
-            setTimeout(() => {
-              this.data = '用户数据'
-              this.isLoading = false
-            }, 3000)
-          }
-        }
-      })
-    </script>
-  </body>
-</html>
+      },
+    })
+  </script>
+</body>
 ```
 
 `Vue.directive` 传递两个参数
@@ -190,36 +178,30 @@ $emit 传入一个参数事件名称 `event`
 > [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch3-3.html)
 
 ```html
-<html>
-  <head>
-    <title>Vue.component 用法</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  </head>
-  <body>
-    <div id="root">
-      <Test :msg="message"></Test>
-    </div>
-    <script>
-      Vue.component('Test', {
-        template: '<div>{{msg}}</div>',
-        props: {
-          msg: {
-            type: String,
-            default: 'default message'
-          }
+<body>
+  <div id="root">
+    <Test :msg="message"></Test>
+  </div>
+  <script>
+    Vue.component('Test', {
+      template: '<div>{{msg}}</div>',
+      props: {
+        msg: {
+          type: String,
+          default: 'default message'
         }
-      })
-      new Vue({
-        el: '#root',
-        data() {
-          return {
-            message: "Test Component"
-          }
+      }
+    })
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          message: "Test Component"
         }
-      })
-    </script>
-  </body>
-</html>
+      }
+    })
+  </script>
+</body>
 ```
 
 `compoent` 跟 `directive` 一样首先会进入一个匿名函数，传递两个参数
@@ -249,37 +231,35 @@ $emit 传入一个参数事件名称 `event`
 这里组件的定义方法根上面不太一样，这里直接用 `Vue.extend` 生成组件
 
 ```html
-<html>
-  <head>
-    <title>Vue.extend 用法</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  </head>
-  <body>
-    <div id="root">
-      <Test :msg="message"></Test>
-    </div>
-    <script>
-      const component = Vue.extend({
-        template: '<div>{{msg}}</div>',
-        props: {
-          msg: {
-            type: String,
-            default: 'default message'
-          }
+<body>
+  <h2 class="title">
+    <a href="../index.html" style="text-decoration: none; color: #2c3e50">>back</a>
+  </h2>
+  <div id="root">
+    <Test :msg="message"></Test>
+  </div>
+  <script>
+    const component = Vue.extend({
+      template: '<div>{{msg}}</div>',
+      props: {
+        msg: {
+          type: String,
+          default: 'default message'
         }
-      })
-      Vue.component('Test')
-      new Vue({
-        el: '#root',
-        data() {
-          return {
-            message: "Test Extend Component"
-          }
+      },
+      name: 'Test'
+    })
+    Vue.component('Test')
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          message: "Test Extend Component"
         }
-      })
-    </script>
-  </body>
-</html>
+      }
+    })
+  </script>
+</body>
 ```
 
 `Vue.extend ` 接收一个参数 extendOptions
@@ -302,72 +282,69 @@ $emit 传入一个参数事件名称 `event`
 
 > [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch3-5.html)
 
+loading CSS 样式
+
+```css
+#loading-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+}
+```
+
 ```html
-<html>
-  <head>
-    <title>Vue.extend 用法2</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <style>
-      #loading-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        color: #fff;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root">
-      <button @click="showLoading">显示Loading</button>
-    </div>
-    <script>
-      function Loading(msg) {
-        const LoadingComponent = Vue.extend({
-          template: '<div id="loading-wrapper">{{msg}}</div>',
-          props: {
-            msg: {
-              type: String,
-              default: 'loading...',
-            },
-          },
-          name: 'LoadingComponent',
-        })
-        const div = document.createElement('div')
-        div.setAttribute('id', 'loading-wrapper')
-        document.body.append(div)
-        new LoadingComponent({
-          props: {
-            msg: {
-              type: String,
-              default: msg,
-            },
-          },
-        }).$mount('#loading-wrapper')
-        return () => {
-          document.body.removeChild(document.getElementById('loading-wrapper'))
-        }
-      }
-      Vue.prototype.$loading = Loading
-      new Vue({
-        el: '#root',
-        methods: {
-          showLoading() {
-            const hide = this.$loading('正在加载，请稍等...')
-            setTimeout(() => {
-              hide()
-            }, 2000)
+<body>
+  <div id="root">
+    <button @click="showLoading">显示Loading</button>
+  </div>
+  <script>
+    function Loading(msg) {
+      const LoadingComponent = Vue.extend({
+        template: '<div id="loading-wrapper">{{msg}}</div>',
+        props: {
+          msg: {
+            type: String,
+            default: 'loading...',
           },
         },
+        name: 'LoadingComponent',
       })
-    </script>
-  </body>
-</html>
+      const div = document.createElement('div')
+      div.setAttribute('id', 'loading-wrapper')
+      document.body.append(div)
+      new LoadingComponent({
+        props: {
+          msg: {
+            type: String,
+            default: msg,
+          },
+        },
+      }).$mount('#loading-wrapper')
+      return () => {
+        document.body.removeChild(document.getElementById('loading-wrapper'))
+      }
+    }
+    Vue.prototype.$loading = Loading
+    new Vue({
+      el: '#root',
+      methods: {
+        showLoading() {
+          const hide = this.$loading('正在加载，请稍等...')
+          setTimeout(() => {
+            hide()
+          }, 2000)
+        },
+      },
+    })
+  </script>
+</body>
 ```
 
 之前我们用 `directive` 实现 loading，现在我们换一种方式实现，直接在 Vue 中使用 loading
@@ -386,75 +363,55 @@ $emit 传入一个参数事件名称 `event`
 Vue.use 主要是用来加载 Vue 的插件，这个案例跟上面那个不一样，这个是把上面那个封装成插件，提高了复用性
 
 ```html
-<html>
-  <head>
-    <title>Vue.use 用法</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <style>
-      #loading-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,.7);
-        color: #fff;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root">
-      <button @click="showLoading">显示Loading</button>
-    </div>
-    <script>
-      const loadingPlugin = {
-        install: function(vm) {
-          const LoadingComponent = vm.extend({
-            template: '<div id="loading-wrapper">{{msg}}</div>',
+<body>
+  <div id="root">
+    <button @click="showLoading">显示Loading</button>
+  </div>
+  <script>
+    const loadingPlugin = {
+      install: function(vm) {
+        const LoadingComponent = vm.extend({
+          template: '<div id="loading-wrapper">{{msg}}</div>',
+          props: {
+            msg: {
+              type: String,
+              default: 'loading...'
+            }
+          }
+        }, 'LoadingComponent')
+        function Loading(msg) {
+          const div = document.createElement('div')
+          div.setAttribute('id', 'loading-wrapper')
+          document.body.append(div)
+          new LoadingComponent({
             props: {
               msg: {
                 type: String,
-                default: 'loading...'
+                default: msg
               }
-            }
-          }, 'LoadingComponent')
-          function Loading(msg) {
-            const div = document.createElement('div')
-            div.setAttribute('id', 'loading-wrapper')
-            document.body.append(div)
-            new LoadingComponent({
-              props: {
-                msg: {
-                  type: String,
-                  default: msg
-                }
-              } 
-            }).$mount('#loading-wrapper')
-            return () => {
-              document.body.removeChild(document.getElementById('loading-wrapper'))
-            }
+            } 
+          }).$mount('#loading-wrapper')
+          return () => {
+            document.body.removeChild(document.getElementById('loading-wrapper'))
           }
-          vm.prototype.$loading = Loading
+        }
+        vm.prototype.$loading = Loading
+      }
+    }
+    Vue.use(loadingPlugin)
+    new Vue({
+      el: '#root',
+      methods: {
+        showLoading() {
+          const hide = this.$loading('正在加载，请稍等...')
+          setTimeout(() => {
+            hide()
+          }, 2000)
         }
       }
-      Vue.use(loadingPlugin)
-      new Vue({
-        el: '#root',
-        methods: {
-          showLoading() {
-            const hide = this.$loading('正在加载，请稍等...')
-            setTimeout(() => {
-              hide()
-            }, 2000)
-          }
-        }
-      })
-    </script>
-  </body>
-</html>
+    })
+  </script>
+</body>
 ```
 
 1. Vue.use 引入一个插件 plugin，首先判断 installedPlugins 中是否有这个 plugin（做了缓存），如果有直接返回
@@ -478,9 +435,18 @@ Vue.use 主要是用来加载 Vue 的插件，这个案例跟上面那个不一�
 ## 挂载
 
 - $on 的方法会挂载到 `vm._events` 上去
+
 - directive、compoents、filters 的方法会挂载到 `vm.options` 上去
+
 - Vue.extend 会把 extend、mixin、use、component、directive、filter、options、extendOptions...挂载到子类 `Sub(VueComponent)` 上去
+
 - initState 会把 prop 变为响应式，并挂在到 `vm._props.xxx` 上去，之后通过 proxy 把 `vm._props.xxx` 的访问代理到 `vm.xxx` 上去
+
 - initData 通过 proxy 把 `vm._data.xxx` 的访问代理到 `vm.data` 上去，之后调用 observe 方法观测整个 data 变化，data 也就变为响应式了
+
 - Vue.use 注册的插件会挂载到 `vm._installedPlugins` 上去
+
+- provide 会先挂载到 `vm.options` 上，最后挂载到 `vm._provided` 上
+
+  inject 先挂载到 `vm.options` 上，最后挂载到 `vm` (VueComponent) 上
 
