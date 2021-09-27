@@ -6,7 +6,7 @@
 
 ![](https://gitee.com/lilyn/pic/raw/master/js-img/newVue%E6%BA%90%E7%A0%811.png)
 
-- 在`this._init(options)` 执行之前，除了给它的原型 prototype 扩展方法，还会给 Vue 这个对象扩展全局静态方法（set、delete、nextTick... -> 挂载到 Vue ASSET_TYPES[component|directive|filter] 和 _base(Vue 实例) -> 挂载到 Vue.options），这部分代码搜索 `initGlobalAPI`，这里就不举例了
+- 在 `this._init(options)` 执行之前，除了给它的原型 prototype 扩展方法，还会给 Vue 这个对象扩展全局静态方法（set、delete、nextTick... -> 挂载到 Vue ASSET_TYPES[component|directive|filter] 和 _base(Vue 实例) -> 挂载到 Vue.options），这部分代码搜索 `initGlobalAPI`，这里就不举例了
 - Vue 初始化主要干了如下几件事情：
 
 1. 合并配置（options）
@@ -438,20 +438,286 @@ render: function (createElement) {
 ## class style
 
 > [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-4.html)
+>
+> [官网 Class 与 Style 绑定](https://cn.vuejs.org/v2/guide/class-and-style.html)
 
+```html
+<body>
+  <h2 class="title">
+    <a href="../index.html" style="text-decoration: none; color: #2c3e50">>back</a>
+  </h2>
+  <div id="root">
+    <div :class="['active', 'normal']">数组绑定多个class</div>
+    <div :class="[{active: isActive}, 'normal']">数组包含对象绑定class</div>
+    <div :class="[showWarning(), 'normal']">数组包含方法绑定class</div>
+    <div :style="[warning, bold]">数组绑定多个style</div>
+    <div :style="[warning, mix()]">数组包含方法绑定style</div>
+    <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">style多重值</div>
+  </div>
 
+  <script>
+    new Vue({
+      el: '#root',
+      data() {
+        return {
+          isActive: true,
+          warning: {
+            color: 'orange'
+          },
+          bold: {
+            fontWeight: 'bold'
+          }
+        }
+      },
+      methods: {
+        showWarning() {
+          return 'warning'
+        },
+        mix() {
+          return {
+            ...this.bold,
+            fontSize: 20
+          }
+        }
+      }
+    })
+  </script>
+</body>
+```
+
+**数组结合对象/表达式**
+
+```css
+/* 最后展示效果 */
+class="active normal" class="normal"
+/* 实现方式 */
+:class="[{active: isActive} 'normal']"
+:class="(isActive ? 'active': '') + ' normal'"
+```
+
+**Vue2.3+ 新特性**
+
+```html
+<!-- 从后往前，哪个兼容用哪个 -->
+<div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+```
 
 ## Vue.observe
 
 > [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-5.html)
+>
+> [官网 Vue.observable()](https://cn.vuejs.org/v2/api/#Vue-observable)
 
+用法：让一个对象可响应。Vue 内部会用它来处理 data 函数返回的对象。返回的对象可以直接用于渲染函数和计算属性内，并且会在发生变更时触发相应的更新。也可以作为最小化跨组件状态存储器，用于简单的场景（简单场景下可以代替 vuex）
 
+```html
+<body>
+  <h2 class="title">
+    <a href="../index.html" style="text-decoration: none; color: #2c3e50">>back</a>
+  </h2>
+  <div id="root">
+    {{message}}
+    <button @click="change">Change</button>
+  </div>
+  <script>
+    const state = Vue.observable({ message: 'Vue 2.6' })
+    const mutation = {
+      setMessage(value) {
+        state.message = value
+      }
+    }
+    new Vue({
+      el: '#root',
+      computed: {
+        message() {
+          return state.message
+        }
+      },
+      methods: {
+        change() {
+          mutation.setMessage('Vue 3.0')
+        }
+      }
+    })
+  </script>
+</body>
+```
+
+在 Vue 初始化过程中，在 `this._init(options)` 执行之前，除了给它的原型 prototype 扩展方法，还会给 Vue 这个对象扩展全局静态方法 `initGlobalAPI` ，`Vue.observable` 初始化就在其中
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%811.png)
+
+`observe` 传进来的参数最起码需要满足是一个对象。 `observe` 方法的作用：给非 VNode 的对象类型添加一个 `Observer`，如果已经添加过则直接返回，否则在满足一定条件下去实例化一个 `Observer` 对象实例
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%812.png)
+
+ `new Observer(value)` ，最后会执行 `walk` 方法，该方法是遍历对象 key 调用 `defineReactive` 方法，使其变成一个响应式对象
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%816.png)
+
+方法 `def` 就是对 `Object.defineProperty` 方法进行了封装
+
+目的是给 value 添加 `__ob__` 这个属性，并且这个属性值指向当前这个 `Observer`  实例 
+
+- 这样第一次定义以后，`function observe`  下一次会对同样对象直接返回 `__ob__`
+- 其次就是在 walk 方法中，防止其遍历 `__ob__` ，因为第四个参数 enumerable 没有传，转换为布尔为 false，所以 `__ob__` 是不可枚举的。如果要这么写： `value.__ob__ = this`，则会对 `__ob__` 进行遍历
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%814.png)
+
+`defineReactive` 函数最开始初始化 `Dep` 对象实例，接着拿着 `obj` 的属性描述符，对子对象递归调用 `observe` 方法，这样我们访问或修改 `obj` 中的一个嵌套较深的属性，也能触发 getter 和 setter
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%817.png)
+
+- get 做的事情是依赖收集，把值获取到直接返回
+- set 做的事情是派发更新（响应式更新 `dep.notify()`）
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%818.png)
+
+`if (Dep.target) dep.depend()` ，收集当前正在计算的 Watcher，把这个 Watcher 作为订阅者。`Dep` 实际上就是对 `Watcher` 的一种管理
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%819.png)
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%8110.png)
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/observe%E6%BA%90%E7%A0%8111.png)
+
+最终 obj，会有 `__ob__` 这样一个 Observe 实例，变成一个响应式对象（访问时触发 getter 逻辑、修改时触发 setter 逻辑）
 
 ## slot
 
 > [案例链接](https://llwodexue.github.io/vue-node-mooc/src/ch4-6.html)
+>
+> [官网 插槽](https://cn.vuejs.org/v2/guide/components-slots.html)
 
+### 案例 1：
 
+- 带 name 属性 `name="header"` 为具名插槽，该 `slot` 绑定了两个变量 `user -> obj`、`section -> header`
 
-[https://iseeu.blog.csdn.net/article/details/105363274](https://iseeu.blog.csdn.net/article/details/105363274)
+- 不带 `name` 属性为匿名插槽（默认插槽 default），该 `slot` 绑定了两个变量 `user -> obj` 、`section -> body` 
+
+  `v-slot` 以前是用  `slot-scoped` 这种写法
+
+```html
+<body>
+  <div id="root">
+    <div>案例1：slot的基本用法</div>
+    <Test>
+      <template v-slot:header="{user}">
+        <div>自定义header({{user.a}})</div>
+      </template>
+      <template v-slot="{user}">
+        <div>自定义body({{user.b}})</div>
+      </template>
+    </Test>
+  </div>
+  <script>
+    Vue.component('Test', {
+      template: 
+        '<div>' +
+          '<slot name="header" :user="obj" :section="\'header\'">' +
+            '<div>默认header</div>' +
+          '</slot>' +
+          '<slot :user="obj" :section="\'body\'">默认body</slot>' +
+        '</div>',
+      data() {
+        return {
+          obj: { a: 1, b: 2 }
+        }
+      }
+    })
+    new Vue({ el: '#root' })
+  </script>
+</body>
+
+<!-- 渲染结果 -->
+<div id="root">
+  <div>案例1：slot的基本用法</div> 
+  <div>
+    <div>自定义header(1)</div>
+    <div>自定义body(2)</div>
+  </div>
+</div>
+```
+
+### 案例2：
+
+- `v-slot:[section]="{section}"` 是动态插槽，`section -> 'header'`
+- 点击按钮调用 `change` 方法，切换 `section` 的值
+
+```html
+<body>
+  <div id="root2">
+    <div>案例2：Vue2.6新特性 - 动态slot</div>
+    <Test>
+      <template v-slot:[section]="{section}">
+        <div>this is {{section}}</div>
+      </template>
+    </Test>
+    <button @click="change">switch header and body</button>
+  </div>
+  <script>
+    Vue.component('Test', {
+      template: 
+        '<div>' +
+          '<slot name="header" :user="obj" :section="\'header\'">' +
+            '<div>默认header</div>' +
+          '</slot>' +
+          '<slot :user="obj" :section="\'body\'">默认body</slot>' +
+        '</div>',
+      data() {
+        return {
+          obj: { a: 1, b: 2 }
+        }
+      }
+    })
+    new Vue({ 
+      el: '#root2',
+      data() {
+        return {
+          section: 'header'
+        }
+      },
+      methods: {
+        change() {
+          this.section === 'header' ?
+            this.section = 'default' :
+            this.section = 'header'
+        }
+      }
+    })
+  </script>
+</body>
+
+<!-- 渲染结果 -->
+<div id="root2">
+  <div>案例2：Vue2.6新特性 - 动态slot</div> 
+  <div>
+    <div>this is header</div>
+      默认body
+    </div> 
+  <button>switch header and body</button>
+</div>
+```
+
+### 源码简读
+
+在 `parse` 阶段会执行 `processSlotContent` 处理 `slot` ，当解析到标签上有 `slot` 属性的时候，会给对应的 AST 元素节点添加 `slotTarget` 属性（有 `slot` 就用对应的属性 -> 具名插槽，没有则用 `defalult` 属性 -> 默认插槽）
+
+`slot-scope` 是 Vue2.5+ 新增的语法，`slot-scope` -> 作用域插槽，需要在 `template` 上使用，可以接受传递给插槽的 prop
+
+- 用法：`<template slot="xxx">  <div slot-scope="xxx">`
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/slot%E6%BA%90%E7%A0%811.png)
+
+Vue 2.6+ 新增 `v-slot` ，`v-slot` 只能用在 component（组件也是用 template 包的） 和 template 上，`v-slot` 可以简写为 `#`
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/slot%E6%BA%90%E7%A0%812.png)
+
+![](https://gitee.com/lilyn/pic/raw/master/js-img/slot%E6%BA%90%E7%A0%813.png)
+
+##  断点调试文章
+
+[Chrome 开发者工具](https://www.cnblogs.com/constantince/category/712675.html)
+
+[chrome developer tool—— 断点调试篇](https://www.cnblogs.com/yzg1/p/5578363.html)
 
