@@ -9,7 +9,7 @@ export default {
   name: 'App',
   methods: {
     show() {
-      this.$message.success('Toast from element-ui')
+      this.$message.success('这是 element-ui')
     }
   }
 }

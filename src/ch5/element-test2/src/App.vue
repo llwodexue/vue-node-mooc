@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <el-form inline :model="data" :rules="rules" ref="form" validate-on-rule-change status-icon>
+    <el-form
+      inline="true"
+      :model="data"
+      :rules="rules"
+      ref="form"
+      validate-on-rule-change="false"
+      status-icon
+      label-position="right"
+      label-width="100px"
+    >
       <el-form-item label="审批人" prop="user" :error="error" :validate-status="status">
         <el-input v-model="data.user" placeholder="审批人"></el-input>
       </el-form-item>
@@ -25,74 +34,66 @@
 export default {
   name: 'app',
   data() {
-    // const userValidator = (rule, value, callback) => {
-    //   if (value.length > 3) {
-    //     callback()
-    //   } else {
-    //     callback(new Error('用户名长度必须大于3'))
-    //   }
-    // }
+    /* const userValidator = (rule, value, callback) => {
+      if (value.length > 3) {
+        callback()
+      } else {
+        callback(new Error('用户名长度必须大于3'))
+      }
+    } */
     return {
       error: '',
       status: '',
       data: {
         user: '',
-        region: ''
+        region: '',
       },
       rules: {
         user: [
           { required: true, trigger: 'change', message: '用户名必须录入' },
-          // { validator: userValidator, trigger: 'change' }
-        ]
-      }
+          /* { validator: userValidator, trigger: 'change' }, */
+        ],
+      },
     }
   },
   methods: {
     onSubmit() {
-		console.log(this.data)
-		this.$refs.form.validate((isValid,errors)=>{
-			console.log(isValid,errors)
-		})
-	},
-	addRule() {
-		const userValidator = (rule, value, callback) => {
-			if (value.length > 3) {
-				// this.inputError = ''
-				// this.inputValidateStatus = ''
-				callback()
-			} else {
-				callback(new Error('用户名长度必须大于3'))
-			}
-		}
-		const newRule = [
-			...this.rules.user,
-			{ validator: userValidator, trigger: 'change' }
-		]
-		this.rules = Object.assign({}, this.rules, { user: newRule })
-	},
-	showError() {
+      this.$refs.form.validate((isValid, errors) => {
+        console.log(isValid, errors)
+      })
+    },
+    addRule() {
+      const userValidator = (rule, value, callback) => {
+        if (value.length > 3) {
+          /* this.inputError = ''
+          this.inputValidateStatus = '' */
+          callback()
+        } else {
+          callback(new Error('用户名长度必须大于3'))
+        }
+      }
+      const newRule = [...this.rules.user, { validator: userValidator, trigger: 'change' }]
+      this.rules = Object.assign({}, this.rules, { user: newRule })
+    },
+    showError() {
       this.status = 'error'
       this.error = '用户名输入有误'
-	},
-	showSuccess() {
+    },
+    showSuccess() {
       this.status = 'success'
       this.error = ''
-	},
-	showValidating() {
+    },
+    showValidating() {
       this.status = 'validating'
       this.error = ''
-	}
-  }
+    },
+  },
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 </style>
