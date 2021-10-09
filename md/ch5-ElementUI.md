@@ -595,7 +595,7 @@ validator.validate(source, { firstFields: true }, callBack)
   - `array`：必须是 Array.isArray 通过的数组
   - `object`：必须是 Array.isArray 不通过的类型的 Object 类型
   - `date`：必须是 Date 对象的实例
-  - `interger`：必须是 Number 类型的正整数
+  - `integer`：必须是 Number 类型的正整数
   - `float`：必须是 Number 类型的浮点数
   - `enum`：预先定义 enum，值必须是 enum 某个值
   - `url`：必须符合链接格式

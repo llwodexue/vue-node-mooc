@@ -5,11 +5,19 @@ import B from './components/B'
 
 Vue.use(Route)
 const routes = [
-  { path: '/b', component: B, meta: { title: 'Custom Title B' } },
-  { path: '/hello-world', component: HelloWorld, meta: { title: 'HelloWorld' } }
+  {
+    path: '/b',
+    component: B,
+    meta: { title: 'Custom Title B' },
+    beforeEnter(to, from, next) {
+      console.log('B beforeEnter')
+      next()
+    },
+  },
+  { path: '/hello-world', component: HelloWorld, meta: { title: 'HelloWorld' } },
 ]
 const router = new Route({
-  routes
+  routes,
 })
 
 router.beforeEach((to, from, next) => {
