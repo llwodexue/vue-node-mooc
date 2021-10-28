@@ -1,4 +1,4 @@
-## Vuex 原理解析
+## Vuex 原理解析 
 
 > [Vuex 源码](https://github.com/vuejs/vuex)
 
@@ -421,7 +421,7 @@ const routes = [
 
 - `beforeRouteEnter` 和 `beforeRouteUpdate` 一般会配合着来使用。当前路由 query 变更时，会调用 `beforeRouteUpdate` （也可以使用 `$route`）
 
-  场景：根据 id 或搜索词进入商品详情页，这时就需要用到 `beforeRouteEnter` ，但如果一个 spu(一个产品) 有多个 sku(具体型号)，切换 sku(具体型号) 时只是 query 发生改变，这时就需要用到 `beforeRouteUpdate` 
+  **场景：** 根据 id 或搜索词进入商品详情页，这时就需要用到 `beforeRouteEnter` ，但如果一个 spu(一个产品) 有多个 sku(具体型号)，切换 sku(具体型号) 时只是 query 发生改变，这时就需要用到 `beforeRouteUpdate` 
 
 **注意：** `beforeRouteEnter` 不能获取组件实例的 `this`，因为当守卫执行前，组件实例还没有被创建。不过可以传一个回调给  `next` 来访问组件实例 `next(vm => { //通过vm访问组件实例 })`，会在 `created` 和 `mounted` 生命周期之间执行
 
@@ -485,6 +485,8 @@ export class History {
 
 ## 路由元信息和API
 
+### 元信息修改标题
+
 通过导航守卫元信息动态修改标题
 
 ```js
@@ -510,5 +512,43 @@ Vue.mixin({
     }
   },
 })
+```
+
+### addRoutes
+
+`addRoutes` 方法作用是动态添加路由配置
+
+- **场景：** 后端路由，需要根据权限动态添加路由
+
+ `src/components/B.vue` 填写如下内容，并把 `router.js` 中的 A 组件删除
+
+- 点击按钮之前跳转 A 页面显示空白
+- 点击按钮之后跳转 A 页面显示内容
+
+```html
+<template>
+  <div>
+    Component B
+    <button @click="addRoute">AddRoute</button>
+    <router-link to="/a">to Component A</router-link>
+  </div>
+</template>
+
+<script>
+import A from './A'
+export default {
+  methods: {
+    addRoute() {
+      this.$router.addRoutes([
+        {
+          path: '/a',
+          component: A,
+          meta: { title: 'Custom Title A' },
+        },
+      ])
+    },
+  },
+}
+</script>
 ```
 
