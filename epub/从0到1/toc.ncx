@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zho">
+  <head>
+    <meta content="67001f12-3ead-4b01-9d19-0d07902307d5" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="calibre (1.48.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>从0到1:开启商业与未来的秘密</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="num_1" playOrder="1">
+      <navLabel>
+        <text>版权页</text>
+      </navLabel>
+      <content src="text/part0000_split_001.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_2" playOrder="2">
+      <navLabel>
+        <text>扉页</text>
+      </navLabel>
+      <content src="text/part0001.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_3" playOrder="3">
+      <navLabel>
+        <text>目录</text>
+      </navLabel>
+      <content src="text/part0002.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_4" playOrder="4">
+      <navLabel>
+        <text>推荐语</text>
+      </navLabel>
+      <content src="text/part0003.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_5" playOrder="5">
+      <navLabel>
+        <text>序1 改变世界的逆行者</text>
+      </navLabel>
+      <content src="text/part0004.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_6" playOrder="6">
+      <navLabel>
+        <text>序2 “道生一”的商业智慧</text>
+      </navLabel>
+      <content src="text/part0005.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_7" playOrder="7">
+      <navLabel>
+        <text>前言</text>
+      </navLabel>
+      <content src="text/part0006.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_8" playOrder="8">
+      <navLabel>
+        <text>第1章 未来的挑战</text>
+      </navLabel>
+      <content src="text/part0007.html"/>
+      <navPoint class="chapter" id="num_9" playOrder="9">
+        <navLabel>
+          <text>从0到1：进步的未来</text>
+        </navLabel>
+        <content src="text/part0007.html#sigil_toc_id_2"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_10" playOrder="10">
+        <navLabel>
+          <text>创业思维</text>
+        </navLabel>
+        <content src="text/part0007.html#sigil_toc_id_3"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_11" playOrder="11">
+      <navLabel>
+        <text>第2章 像1999年那样狂欢</text>
+      </navLabel>
+      <content src="text/part0008.html"/>
+      <navPoint class="chapter" id="num_12" playOrder="12">
+        <navLabel>
+          <text>20世纪90年代的互联网热潮</text>
+        </navLabel>
+        <content src="text/part0008.html#sigil_toc_id_4"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_13" playOrder="13">
+        <navLabel>
+          <text>硅谷淘金热：1998年9月 ~2000年3月</text>
+        </navLabel>
+        <content src="text/part0008.html#sigil_toc_id_5"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_14" playOrder="14">
+        <navLabel>
+          <text>PayPal狂热</text>
+        </navLabel>
+        <content src="text/part0008.html#sigil_toc_id_6"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_15" playOrder="15">
+        <navLabel>
+          <text>获得的经验教训</text>
+        </navLabel>
+        <content src="text/part0008.html#sigil_toc_id_7"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_16" playOrder="16">
+      <navLabel>
+        <text>第3章 所有成功的企业都是不同的</text>
+      </navLabel>
+      <content src="text/part0009.html"/>
+      <navPoint class="chapter" id="num_17" playOrder="17">
+        <navLabel>
+          <text>企业的谎言</text>
+        </navLabel>
+        <content src="text/part0009.html#sigil_toc_id_8"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_18" playOrder="18">
+        <navLabel>
+          <text>垄断者的谎言</text>
+        </navLabel>
+        <content src="text/part0009.html#sigil_toc_id_9"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_19" playOrder="19">
+        <navLabel>
+          <text>非垄断者的谎言</text>
+        </navLabel>
+        <content src="text/part0009.html#sigil_toc_id_10"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_20" playOrder="20">
+        <navLabel>
+          <text>冷酷无情的市场</text>
+        </navLabel>
+        <content src="text/part0009.html#sigil_toc_id_11"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_21" playOrder="21">
+        <navLabel>
+          <text>垄断资本主义</text>
+        </navLabel>
+        <content src="text/part0009.html#sigil_toc_id_12"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_22" playOrder="22">
+      <navLabel>
+        <text>第4章 竞争意识</text>
+      </navLabel>
+      <content src="text/part0010.html"/>
+      <navPoint class="chapter" id="num_23" playOrder="23">
+        <navLabel>
+          <text>战争与和平</text>
+        </navLabel>
+        <content src="text/part0010.html#sigil_toc_id_13"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_24" playOrder="24">
+      <navLabel>
+        <text>第5章 后发优势</text>
+      </navLabel>
+      <content src="text/part0011.html"/>
+      <navPoint class="chapter" id="num_25" playOrder="25">
+        <navLabel>
+          <text>垄断企业的特征</text>
+        </navLabel>
+        <content src="text/part0011.html#sigil_toc_id_14"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_26" playOrder="26">
+        <navLabel>
+          <text>建立垄断企业的方法</text>
+        </navLabel>
+        <content src="text/part0011.html#sigil_toc_id_15"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_27" playOrder="27">
+        <navLabel>
+          <text>后来者居上</text>
+        </navLabel>
+        <content src="text/part0011.html#sigil_toc_id_16"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_28" playOrder="28">
+      <navLabel>
+        <text>第6章 成功不是中彩票</text>
+      </navLabel>
+      <content src="text/part0012.html"/>
+      <navPoint class="chapter" id="num_29" playOrder="29">
+        <navLabel>
+          <text>你能掌控自己的未来吗？</text>
+        </navLabel>
+        <content src="text/part0012.html#sigil_toc_id_17"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_30" playOrder="30">
+        <navLabel>
+          <text>当今的世界——对未来不明确却很乐观</text>
+        </navLabel>
+        <content src="text/part0012.html#sigil_toc_id_18"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_31" playOrder="31">
+        <navLabel>
+          <text>对未来不明确的乐观主义可能持久吗？</text>
+        </navLabel>
+        <content src="text/part0012.html#sigil_toc_id_19"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_32" playOrder="32">
+        <navLabel>
+          <text>长期规划仍是最重要的</text>
+        </navLabel>
+        <content src="text/part0012.html#sigil_toc_id_20"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_33" playOrder="33">
+        <navLabel>
+          <text>你不是一张彩票</text>
+        </navLabel>
+        <content src="text/part0012.html#sigil_toc_id_21"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_34" playOrder="34">
+      <navLabel>
+        <text>第7章 向钱看</text>
+      </navLabel>
+      <content src="text/part0013.html"/>
+      <navPoint class="chapter" id="num_35" playOrder="35">
+        <navLabel>
+          <text>风险投资中的幂次法则</text>
+        </navLabel>
+        <content src="text/part0013.html#sigil_toc_id_22"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_36" playOrder="36">
+        <navLabel>
+          <text>为什么人们没有看到幂次法则</text>
+        </navLabel>
+        <content src="text/part0013.html#sigil_toc_id_23"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_37" playOrder="37">
+        <navLabel>
+          <text>利用幂次法则的作用</text>
+        </navLabel>
+        <content src="text/part0013.html#sigil_toc_id_24"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_38" playOrder="38">
+      <navLabel>
+        <text>第8章 秘密</text>
+      </navLabel>
+      <content src="text/part0014.html"/>
+      <navPoint class="chapter" id="num_39" playOrder="39">
+        <navLabel>
+          <text>为什么人们不探索秘密</text>
+        </navLabel>
+        <content src="text/part0014.html#sigil_toc_id_25"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_40" playOrder="40">
+        <navLabel>
+          <text>恪守常规的世界</text>
+        </navLabel>
+        <content src="text/part0014.html#sigil_toc_id_26"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_41" playOrder="41">
+        <navLabel>
+          <text>相信秘密</text>
+        </navLabel>
+        <content src="text/part0014.html#sigil_toc_id_27"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_42" playOrder="42">
+        <navLabel>
+          <text>如何发现秘密</text>
+        </navLabel>
+        <content src="text/part0014.html#sigil_toc_id_28"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_43" playOrder="43">
+        <navLabel>
+          <text>秘密的作用</text>
+        </navLabel>
+        <content src="text/part0014.html#sigil_toc_id_29"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_44" playOrder="44">
+      <navLabel>
+        <text>第9章 基础决定命运</text>
+      </navLabel>
+      <content src="text/part0015.html"/>
+      <navPoint class="chapter" id="num_45" playOrder="45">
+        <navLabel>
+          <text>初创时的“联姻”</text>
+        </navLabel>
+        <content src="text/part0015.html#sigil_toc_id_30"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_46" playOrder="46">
+        <navLabel>
+          <text>所有权、经营权和控制权</text>
+        </navLabel>
+        <content src="text/part0015.html#sigil_toc_id_31"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_47" playOrder="47">
+        <navLabel>
+          <text>要么上车，要么下车</text>
+        </navLabel>
+        <content src="text/part0015.html#sigil_toc_id_32"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_48" playOrder="48">
+        <navLabel>
+          <text>现金奖励不是王道</text>
+        </navLabel>
+        <content src="text/part0015.html#sigil_toc_id_33"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_49" playOrder="49">
+        <navLabel>
+          <text>股票报酬才能让员工全力以赴</text>
+        </navLabel>
+        <content src="text/part0015.html#sigil_toc_id_34"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_50" playOrder="50">
+        <navLabel>
+          <text>让创业延续</text>
+        </navLabel>
+        <content src="text/part0015.html#sigil_toc_id_35"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_51" playOrder="51">
+      <navLabel>
+        <text>第10章 打造帮派文化</text>
+      </navLabel>
+      <content src="text/part0016.html"/>
+      <navPoint class="chapter" id="num_52" playOrder="52">
+        <navLabel>
+          <text>“PayPal黑帮”</text>
+        </navLabel>
+        <content src="text/part0016.html#sigil_toc_id_36"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_53" playOrder="53">
+        <navLabel>
+          <text>提供不可替代的工作机会</text>
+        </navLabel>
+        <content src="text/part0016.html#sigil_toc_id_37"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_54" playOrder="54">
+        <navLabel>
+          <text>每个员工都与众不同</text>
+        </navLabel>
+        <content src="text/part0016.html#sigil_toc_id_38"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_55" playOrder="55">
+        <navLabel>
+          <text>每名员工只专注于一件事情</text>
+        </navLabel>
+        <content src="text/part0016.html#sigil_toc_id_39"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_56" playOrder="56">
+        <navLabel>
+          <text>关于邪教和顾问</text>
+        </navLabel>
+        <content src="text/part0016.html#sigil_toc_id_40"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_57" playOrder="57">
+      <navLabel>
+        <text>第11章 顾客不会自动上门</text>
+      </navLabel>
+      <content src="text/part0017.html"/>
+      <navPoint class="chapter" id="num_58" playOrder="58">
+        <navLabel>
+          <text>技术精英对阵销售人员</text>
+        </navLabel>
+        <content src="text/part0017.html#sigil_toc_id_41"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_59" playOrder="59">
+        <navLabel>
+          <text>销售是隐形的</text>
+        </navLabel>
+        <content src="text/part0017.html#sigil_toc_id_42"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_60" playOrder="60">
+        <navLabel>
+          <text>如何销售产品</text>
+        </navLabel>
+        <content src="text/part0017.html#sigil_toc_id_43"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_61" playOrder="61">
+        <navLabel>
+          <text>你就是销售员</text>
+        </navLabel>
+        <content src="text/part0017.html#sigil_toc_id_44"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_62" playOrder="62">
+      <navLabel>
+        <text>第12章 人类和机器</text>
+      </navLabel>
+      <content src="text/part0018.html"/>
+      <navPoint class="chapter" id="num_63" playOrder="63">
+        <navLabel>
+          <text>全球化vs. 科技</text>
+        </navLabel>
+        <content src="text/part0018.html#sigil_toc_id_45"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_64" playOrder="64">
+        <navLabel>
+          <text>人机互补之于企业</text>
+        </navLabel>
+        <content src="text/part0018.html#sigil_toc_id_46"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_65" playOrder="65">
+        <navLabel>
+          <text>聪明的计算机：是敌，还是友</text>
+        </navLabel>
+        <content src="text/part0018.html#sigil_toc_id_47"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_66" playOrder="66">
+      <navLabel>
+        <text>第13章 绿色能源与特斯拉</text>
+      </navLabel>
+      <content src="text/part0019.html"/>
+      <navPoint class="chapter" id="num_67" playOrder="67">
+        <navLabel>
+          <text>工程问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_48"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_68" playOrder="68">
+        <navLabel>
+          <text>时机问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_49"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_69" playOrder="69">
+        <navLabel>
+          <text>垄断问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_50"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_70" playOrder="70">
+        <navLabel>
+          <text>人员问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_51"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_71" playOrder="71">
+        <navLabel>
+          <text>销售问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_52"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_72" playOrder="72">
+        <navLabel>
+          <text>持久问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_53"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_73" playOrder="73">
+        <navLabel>
+          <text>秘密问题</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_54"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_74" playOrder="74">
+        <navLabel>
+          <text>公益创业的神话</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_55"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_75" playOrder="75">
+        <navLabel>
+          <text>特斯拉如何脱颖而出？</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_56"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_76" playOrder="76">
+        <navLabel>
+          <text>能源2.0</text>
+        </navLabel>
+        <content src="text/part0019.html#sigil_toc_id_57"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_77" playOrder="77">
+      <navLabel>
+        <text>第14章 创始人的悖论</text>
+      </navLabel>
+      <content src="text/part0020.html"/>
+      <navPoint class="chapter" id="num_78" playOrder="78">
+        <navLabel>
+          <text>特立独行的个性是驱动公司进步的引擎</text>
+        </navLabel>
+        <content src="text/part0020.html#sigil_toc_id_58"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_79" playOrder="79">
+        <navLabel>
+          <text>王者从何而来</text>
+        </navLabel>
+        <content src="text/part0020.html#sigil_toc_id_59"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_80" playOrder="80">
+        <navLabel>
+          <text>美国王族</text>
+        </navLabel>
+        <content src="text/part0020.html#sigil_toc_id_60"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_81" playOrder="81">
+        <navLabel>
+          <text>王者归来</text>
+        </navLabel>
+        <content src="text/part0020.html#sigil_toc_id_61"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_82" playOrder="82">
+      <navLabel>
+        <text>结语 停滞不前，还是临近奇点</text>
+      </navLabel>
+      <content src="text/part0021.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_83" playOrder="83">
+      <navLabel>
+        <text>致谢</text>
+      </navLabel>
+      <content src="text/part0022.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_84" playOrder="84">
+      <navLabel>
+        <text>插图版权声明</text>
+      </navLabel>
+      <content src="text/part0023.html"/>
+    </navPoint>
+  </navMap>
+</ncx>
