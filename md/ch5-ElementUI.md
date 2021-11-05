@@ -43,9 +43,9 @@ vue add element
 
 ## 表单基本用法
 
-1. el-form 容器，通过 v-model 绑定数据
-2. el-form-item 容器，通过 label 绑定标签
-3. 表单组件通过 v-model 绑定 model 中的数据
+1. `el-form` 容器，通过 `v-model` 绑定数据
+2. `el-form-item` 容器，通过 `label` 绑定标签
+3. 表单组件通过 `v-model` 绑定 `model` 中的数据
 
 ```html
 <template>
@@ -124,7 +124,7 @@ methods: {
 }
 ```
 
-2. 指定 el-form-item 的 prop 属性（在使用 validate、resetFields 方法的情况下，该属性必填）
+2. 指定 `el-form-item` 的 `prop` 属性（在使用 `validate`、`resetFields` 方法的情况下，该属性必填）
 
 ```html
 <el-form inline :model="data" :rules="rules" ref="form">
@@ -136,7 +136,7 @@ methods: {
 
 ### 动态添加校验规则
 
-- rulues 删除一个校验规则，现在只包含一个校验规则
+- `rules` 删除一个校验规则，现在只包含一个校验规则
 
 ```js
 data() {
@@ -154,9 +154,11 @@ data() {
 },
 ```
 
-- 动态添加 rules
+- 动态添加 `rules`
 
-  表单中添加新的校验规则会立即进行校验，是因为这个属性 `validate-on-rule-change` 默认为 true，改为 false 即可 `<el-form inline :model="data" :rules="rules" ref="form" validate-on-rule-change>`
+  表单中添加新的校验规则会立即进行校验，是因为这个属性 `validate-on-rule-change` 默认为 true，改为 false 即可
+  
+   `<el-form inline :model="data" :rules="rules" ref="form" validate-on-rule-change="false">`
 
 ```js
 addRule() {
@@ -174,7 +176,7 @@ addRule() {
 },
 ```
 
-注意：新增新规则必须重新生成一个新的 rules 对象，因为 watch 只能监听 rules，而监听不到内部的变化
+注意：新增新规则必须重新生成一个新的 `rules` 对象，因为 `watch` 只能监听 `rules`，而监听不到内部的变化
 
 - 使用 `this.rules = Object.assign({}. this.rules, { user: newRule })`
 - 不能使用 `this.rules.user.push(newRule)`
@@ -188,7 +190,7 @@ addRule() {
 >   - （空）：未验证
 > - error：自定义错误提示
 
-1. 在 `data` 中新增 error 和 status 变量
+1. 在 `data` 中新增 `error` 和 `status` 变量
 
 2. 设置 `status-icon` 属性
 
@@ -210,7 +212,7 @@ addRule() {
    <el-button type="warning" @click="showValidating">校验中</el-button>
    ```
 
-5. 在 methods 中定义 status 和  error 的方法
+5. 在 `methods` 中定义 `status` 和  `error` 的方法
 
    ```js
    showError() {
@@ -233,13 +235,15 @@ addRule() {
 - `label-width`：标签宽度
 - `label-suffix`：标签后缀，一般会设置个冒号 `：`
 - `inline`：行内表单
-- `disabled`：设置整个 form 的表单组件全部 disabled，优先级低于表单组件自身的 disabled
+- `disabled`：设置整个 `form` 的表单组件全部 `disabled`，优先级低于表单组件自身的 `disabled`
 - `status-icon`：输入框右侧显示校验反馈图标
 - `validate-on-rule-change`：是否在 `rules` 属性改变后立即触发一次验证
 
 **disbabled**
 
-直接看 `element-ui\packages\form\src\form.vue` ，里面是没有对 `disabled` 进行处理，而是用 provide 将自身传递给了后代
+- 直接看 `element-ui\packages\form\src\form.vue` 
+
+  看里面是没有对 `disabled` 进行处理，而是用 `provide` 将自身传递给了后代
 
 ```js
 provide() {
@@ -249,7 +253,9 @@ provide() {
 },
 ```
 
-之后去看 `element-ui\packages\input\src\input.vue` ，找到  `:disabled="inputDisabled"`  ，这里先判断自身是否有 `disabled` 属性，再判断祖先是否含有（自身的优先级高一些）。这里使用了 inject 去接收 elForm 和 elFormItem
+- 之后去看 `element-ui\packages\input\src\input.vue` 
+
+  找到  `:disabled="inputDisabled"`  ，这里先判断自身是否有 `disabled` 属性，再判断祖先是否含有（自身的优先级高一些）。这里使用了 `inject` 去接收 `elForm` 和 `elFormItem`
 
 ```js
 inject: {
@@ -269,7 +275,9 @@ computed: {
 
 **size**
 
-先去看 `element-ui\packages\input\src\input.vue` ，找到 `inputSize ? 'el-input--' + inputSize : '',` ，会先找到 `_elFormItemSize`，之后会去找 `elFormItem` 里的 elFormItemSize
+- 先去看 `element-ui\packages\input\src\input.vue` 
+
+  找到 `inputSize ? 'el-input--' + inputSize : '',` ，会先找到 `_elFormItemSize`，之后会去找 `elFormItem` 里的 elFormItemSize
 
 ```js
 computed: {
@@ -282,7 +290,9 @@ computed: {
 }
 ```
 
-之后去看 `element-ui\packages\form\src\form-item.vue` ，也是通过 provide 将自身传递给后代
+- 之后去看 `element-ui\packages\form\src\form-item.vue` 
+
+  它也是通过 `provide` 将自身传递给后代
 
 ```js
 provide() {
@@ -292,7 +302,7 @@ provide() {
 },
 ```
 
-这里去找 elFormItemSize，最后发现它是直接找 `this.elForm.size`
+这里去找 `elFormItemSize`，最后发现它是直接找 `this.elForm.size`
 
 ```js
 computed: {
@@ -311,7 +321,7 @@ computed: {
 
 `element-ui\src\index.js` 是 ElementUI 的入口文件
 
-- `Vue.use(Element)` 调用 ElementUI 入口的 install 方法，会加载全部组件
+- `Vue.use(Element)` 调用 ElementUI 入口的 `install` 方法，会加载全部组件
 
   所有组件在存在 `components` 数组中
 
@@ -348,7 +358,7 @@ const install = function(Vue, opts = {}) {
 </template>
 ```
 
-watch 主要监听 rules 的变化，对 rules 进行变更会去判断 `validateOnRuleChange` 是否启用，启用则执行一次
+`watch` 主要监听 `rules` 的变化，对 `rules` 进行变更会去判断 `validateOnRuleChange` 是否启用，启用则执行一次
 
 ```js
 watch: {
@@ -366,7 +376,7 @@ watch: {
 },
 ```
 
-- from validate 对整个表单进行验证
+- `from` 里的  `validate` 对整个表单进行验证
 
 ```js
 validate(callback) {
@@ -461,9 +471,9 @@ validate(callback) {
 </template>
 ```
 
-当表单验证有误时，文字出现是有动画的，使用的是 Vue 的 transition 组件的动画
+当表单验证有误时，文字出现是有动画的，使用的是 Vue 的 `transition` 组件的动画
 
-- transition 组件里面有个 slot 插槽（具名插槽 `name="error"`），这里允许我们自己对错误提示文本的样式进行自定义修改
+- `transition` 组件里面有个 `slot` 插槽（具名插槽 `name="error"`），这里允许我们自己对错误提示文本的样式进行自定义修改
 
 ```scss
 $--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
@@ -482,7 +492,7 @@ $--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 3
 }
 ```
 
-- 之前自定义 error，它会立即展示出来效果（在 created 会执行一次）
+- 之前自定义 `error`，它会立即展示出来效果（在 `created` 会执行一次）
 
 ```js
 watch: {
@@ -499,7 +509,7 @@ watch: {
 },
 ```
 
-- from-item validate 对每一项进行验证
+- `from-item` 里的 `validate` 对每一项进行验证
 
 ```js
 validate(trigger, callback = noop) {
@@ -547,10 +557,10 @@ Element 表单校验主要使用了 [async-validator](https://github.com/yimingh
 
 这个插件基本流程如下：
 
-- 按照 rule 的规则生成 rules，并指定每个字段的规范
-- 根据 rules 生成验证器 `const validator = new Validator(rules)`
+- 按照 `rule` 的规则生成 `rules`，并指定每个字段的规范
+- 根据 `rules` 生成验证器 `const validator = new Validator(rules)`
 - 对验证器进行验证 `validator.validate(source, [options], callback)`
-- 匹配 source 中的字段对应规则，全部通过或出错调用 callback
+- 匹配 `source` 中的字段对应规则，全部通过或出错调用 `callback`
 
 ```js
 import Validator from 'async-validator'

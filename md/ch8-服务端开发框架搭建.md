@@ -54,19 +54,19 @@ Node 是一个基于 V8 引擎的 Javascript 运行环境，它使得 Javascript
 
 主线程从任务队列中读取事件，这个过程是循环不断的，这种整个运行机制又称为 `Event Loop` （事件循环）
 
-- 浏览器中的 Event Loop
+- 浏览器中的 `Event Loop`
 
   执行栈在执行完 **同步任务** 后，查看 **执行栈** 是否为空，如果 **执行栈** 为空，就回去检查 **微任务** 队列是否为空，如果为空的话，就会执行 **宏任务**，否则就一次性执行完所有 **微任务**
 
   ![](https://gitee.com/lilyn/pic/raw/master/js-img/%E6%B5%8F%E8%A7%88%E5%99%A8EventLoop.gif)
 
-- Node 中的 Event Loop
+- Node 中的 `Event Loop`
 
   Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件驱动的编程方法，核心是提供 `I/O` 的事件循环和异步回调
 
   ![](https://gitee.com/lilyn/pic/raw/master/js-img/NodeEventLoop.png)
 
-Node 的 Event Loop 一共分为 6 个阶段：
+Node 的 `Event Loop` 一共分为 6 个阶段：
 
 1. **timers（定时器）**：此阶段执行那些由 `setTimeout()` 和 `setInterval()` 调度的回调函数
 
@@ -84,16 +84,16 @@ Node 的 Event Loop 一共分为 6 个阶段：
 
 **poll 阶段**
 
-如果 Event Loop 进入了 **poll** 阶段，且代码未设定 `timer`，将会发生下面情况：
+如果 `Event Loop` 进入了 **poll** 阶段，且代码未设定 `timer`，将会发生下面情况：
 
-- 如果 `poll` 队列不为空，则 Event Loop 将 **同步执行** `callback` 队列，直至队列为空或者达到系统上限
+- 如果 `poll` 队列不为空，则 `Event Loop` 将 **同步执行** `callback` 队列，直至队列为空或者达到系统上限
 - 如果 `poll` 队列为空，将会发生下面情况：
-  - 如果有 `setImmediate()` 回调需要执行， Event Loop 会立即停止执行 **poll** 阶段并执行 **check** 阶段，然后执行回调
-  - 如果没有 `setImmediate()` 回调需要执行，Event Loop 将阻塞在 **poll** 阶段，等待 `callback` 被添加到任务队列中，然后执行
+  - 如果有 `setImmediate()` 回调需要执行， `Event Loop` 会立即停止执行 **poll** 阶段并执行 **check** 阶段，然后执行回调
+  - 如果没有 `setImmediate()` 回调需要执行，`Event Loop` 将阻塞在 **poll** 阶段，等待 `callback` 被添加到任务队列中，然后执行
 
-如果 Event Loop 进入了 **poll** 阶段，且代码设定了 `timer`：
+如果 `Event Loop` 进入了 **poll** 阶段，且代码设定了 `timer`：
 
-- 如果 `poll` 队列为空，则 Event Loop 将检查 `timer` 是否超时，如果有的话会回到 **timers** 阶段执行回调
+- 如果 `poll` 队列为空，则 `Event Loop` 将检查 `timer` 是否超时，如果有的话会回到 **timers** 阶段执行回调
 
 ![](https://gitee.com/lilyn/pic/raw/master/js-img/NodeEvent6.png)
 
@@ -137,15 +137,15 @@ npm init -y
 
 中间件的本质就是一个请求处理方法，该方法需要接收三个参数：
 
-- request 请求对象
+- `request` 请求对象
 
-- response 响应对象
+- `response` 响应对象
 
-- next 下一个中间件
+- `next` 下一个中间件
 
-  如果请求进入中间件之后，没有调用 next 则代码会停在中间件（类似迭代器）
+  如果请求进入中间件之后，没有调用 `next` 则代码会停在中间件（类似迭代器）
 
-  如果调用了 next 则继续向后查找第一个匹配的中间件
+  如果调用了 `next` 则继续向后查找第一个匹配的中间件
 
 ```js
 function myLogger(req, res, next) {
