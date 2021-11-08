@@ -106,3 +106,28 @@ configureWebpack: {
 |-- vue.config.js                 // vue配置文件
 ```
 
+## 登录页面修改
+
+- `src/views/login/index.vue`
+
+`template` 修改
+
+- 修改标题 `<h3 class="title">小慕读书</h3>`
+- 删除提示区内容 `<div style="position:relative">...</div>`
+- 修改 `input` 的 `placeholder` 为中文，修改 `el-button` 中的文字为中文
+- 删除 `el-dialog` 代码
+
+`script` 修改
+
+- 删除 `SocialSign` 的引用和注册，删除 `login` 组件的 `components` 文件夹
+
+- 删除 `validUsername` 的引用，并把 `if (!validUsername(value)) `  修改为 `if (!value || value.length === 0) `
+
+- 修改 `data` 中的表单校验文字为中文
+
+- 删除 `showDialog` 变量
+
+- 删除 `created` 和 `destroyed` 钩子函数和被注释的 `afterQRScan` 代码
+
+  
+
