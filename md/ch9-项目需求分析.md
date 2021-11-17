@@ -176,7 +176,7 @@ csrutil enable
    ```nginx
    server
    {
-     listen 4430 default ssl;
+     listen 443 default ssl;
      server_name https_host;
      root E:/upload;
      autoindex on;
@@ -248,6 +248,12 @@ sudo nginx -t          # mac
 ```
 
 检查 80 端口是否被占用：
+
+- 报错：`nginx: [emerg] bind() to 0.0.0.0:443 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)` 
+
+  方法一：把 `https` 服务注释掉或换一个端口
+
+  方法二：使用如下命令把对应端口杀掉
 
 ```bash
 netstat -ano | findstr 0.0.0.0:80
