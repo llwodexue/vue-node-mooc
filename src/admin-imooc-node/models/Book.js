@@ -1,5 +1,12 @@
-const { MIME_TYPE_EPUB, UPLOAD_URL, UPLOAD_PATH } = require('../utils/constant')
+const {
+  MIME_TYPE_EPUB,
+  UPLOAD_URL,
+  UPLOAD_PATH,
+  UPDATE_TYPE_FROM_WEB,
+  OLD_UPLOAD_URL,
+} = require('../utils/constant')
 const fs = require('fs')
+const path = require('path')
 const Epub = require('../utils/epub')
 const xml2js = require('xml2js').parseString
 
@@ -40,7 +47,7 @@ class Book {
       fs.renameSync(oldBookPath, bookPath) // 重命名文件
     }
 
-    this.filename = filename // 文件名
+    this.fileName = filename // 文件名
     this.path = `/book/${filename}${suffix}` // epub文件夹相对路径
     this.filePath = this.path // epub文件夹相对路径
     this.unzipPath = `/unzip/${filename}` // epub解压后相对路径
@@ -55,11 +62,30 @@ class Book {
     this.categoryText = '' // 分类名称
     this.language = '' // 语种
     this.unzipUrl = unzipUrl // 解压后文件夹链接
-    this.originalname = originalname // 电子书原名
+    this.originalName = originalname // 电子书原名
   }
 
   createBookFromData(data) {
-    console.log('createBookFromData', data)
+    this.fileName = data.fileName
+    this.cover = data.coverPath
+    this.title = data.title
+    this.author = data.author
+    this.publisher = data.publisher
+    this.bookId = data.fileName
+    this.language = data.language
+    this.rootFile = data.rootFile
+    this.originalName = data.originalName
+    this.path = data.path || data.filePath
+    this.filePath = data.path || data.filePath
+    this.unzipPath = data.unzipPath
+    this.coverPath = data.coverPath
+    this.createUser = data.username
+    this.createDt = new Date().getTime()
+    this.updateDt = new Date().getTime()
+    this.updateType = data.updateType === 0 ? data.updateType : UPDATE_TYPE_FROM_WEB
+    this.contents = data.contents
+    this.category = data.category || 99
+    this.categoryText = data.categoryText || '自定义'
   }
 
   parse() {
@@ -69,7 +95,7 @@ class Book {
       const epub = new Epub(bookPath)
       epub.on('error', err => reject(err))
       epub.on('end', err => {
-        if (err) reject(err)
+        if (err) return reject(err)
         const { title, creator, creatorFileAs, language, publisher, cover } = epub.metadata
         if (!title) reject(new Error('图书标题为空'))
         this.title = title
@@ -78,21 +104,24 @@ class Book {
         this.publisher = publisher || 'unknown'
         this.rootFile = epub.rootFile
         const handleGetImage = (err, file, mimeType) => {
-          if (err) reject(err)
+          if (err) return reject(err)
           const suffix = mimeType && mimeType.split('/')[1]
-          const coverPath = `${UPLOAD_PATH}/img/${this.filename}.${suffix}`
-          const coverUrl = `${UPLOAD_URL}/img/${this.filename}.${suffix}`
+          const coverPath = `${UPLOAD_PATH}/img/${this.fileName}.${suffix}`
+          const coverUrl = `${UPLOAD_URL}/img/${this.fileName}.${suffix}`
           fs.writeFileSync(coverPath, file, 'binary')
-          this.coverPath = `/img/${this.filename}`
+          this.coverPath = `/img/${this.fileName}.${suffix}`
           this.cover = coverUrl
           resolve(this)
         }
         try {
-          this.unzip()
-          this.parseContents(epub).then(({ chapters }) => {
-            this.contents = chapters
-            epub.getImage(cover, handleGetImage)
-          })
+          this.unzip() // 解压电子书
+          this.parseContents(epub)
+            .then(({ chapters, chapterTree }) => {
+              this.contents = chapters
+              this.contentsTree = chapterTree
+              epub.getImage(cover, handleGetImage) // 获取封面图片
+            })
+            .catch(err => reject(err))
         } catch (e) {
           reject(e)
         }
@@ -148,7 +177,8 @@ class Book {
     if (fs.existsSync(ncxFilePath)) {
       return new Promise((resolve, reject) => {
         const xml = fs.readFileSync(ncxFilePath, 'utf-8') // 读取ncx文件
-        const filename = this.filename
+        const dir = path.dirname(ncxFilePath).replace(UPLOAD_PATH, '')
+        const filename = this.fileName
         // 将ncx文件从xml转为json
         xml2js(
           xml,
@@ -157,30 +187,25 @@ class Book {
             ignoreAttrs: false, // 解析属性
           },
           (err, json) => {
-            if (err) reject(err)
+            if (err) return reject(err)
             const navMap = json.ncx.navMap
             if (navMap.navPoint && navMap.navPoint.length > 0) {
               navMap.navPoint = findParent(navMap.navPoint)
               const newNavMap = flatten(navMap.navPoint) // 将目录拆分为扁平结构
               const chapters = []
-              epub.flow.forEach((chapter, index) => {
-                // 如果目录大于从ncx解析出来的数量，则直接跳过
-                if (index + 1 > newNavMap.length) return
-                const nav = newNavMap[index] // 根据index找到对应的navMap
-                chapter.text = `${UPLOAD_URL}/unzip/${this.filename}/${chapter.href}`
-                if (nav && nav.navLabel) {
-                  chapter.label = nav.navLabel.text || ''
-                } else {
-                  chapter.label = ''
-                }
-                chapter.level = nav.level
-                chapter.pid = nav.pid
-                chapter.navId = nav['$'].id
-                chapter.filename = filename
+              newNavMap.forEach((chapter, index) => {
+                const src = chapter.content['$'].src
+                chapter.id = `${src}`
+                chapter.href = `${dir}/${src}`.replace(this.unzipPath, '')
+                chapter.text = `${UPLOAD_URL}${dir}/${src}`
+                chapter.label = chapter.navLabel.text || ''
+                chapter.navId = chapter['$'].id
+                chapter.fileName = filename
                 chapter.order = index + 1
                 chapters.push(chapter)
               })
-              resolve({ chapters })
+              const chapterTree = Book.genContentsTree(chapters)
+              resolve({ chapters, chapterTree })
             } else {
               reject(new Error('目录解析失败，目录数为0'))
             }
@@ -192,9 +217,94 @@ class Book {
     }
   }
 
+  toDb() {
+    return {
+      fileName: this.fileName,
+      cover: this.cover,
+      title: this.title,
+      author: this.author,
+      publisher: this.publisher,
+      bookId: this.fileName,
+      language: this.language,
+      rootFile: this.rootFile,
+      originalName: this.originalName,
+      filePath: this.filePath,
+      unzipPath: this.unzipPath,
+      coverPath: this.coverPath,
+      createUser: this.createUser,
+      createDt: this.createDt,
+      updateDt: this.updateDt,
+      updateType: this.updateType,
+      category: this.category,
+      categoryText: this.categoryText,
+    }
+  }
+
+  getContents() {
+    return this.contents
+  }
+
+  reset() {
+    if (Book.pathExists(this.filePath)) {
+      fs.unlinkSync(Book.genPath(this.filePath))
+    }
+    if (Book.pathExists(this.coverPath)) {
+      fs.unlinkSync(Book.genPath(this.coverPath))
+    }
+    if (Book.pathExists(this.unzipPath)) {
+      fs.rmdirSync(Book.genPath(this.unzipPath), { recursive: true })
+    }
+  }
+
   static genPath(path) {
     if (!path.startsWith('/')) path = `/${path}`
     return `${UPLOAD_PATH}${path}`
+  }
+
+  static pathExists(path) {
+    if (path.startsWith(UPLOAD_PATH)) return fs.existsSync(path)
+    return fs.existsSync(Book.genPath(path))
+  }
+
+  static genCoverUrl(book) {
+    const { cover } = book
+    if (+book.updateType === 0) {
+      if (cover) {
+        if (cover.startsWith('/')) {
+          return `${OLD_UPLOAD_URL}${cover}`
+        } else {
+          return `${OLD_UPLOAD_URL}/${cover}`
+        }
+      } else {
+        return null
+      }
+    } else {
+      if (cover) {
+        if (cover.startsWith('/')) {
+          return `${UPLOAD_URL}${cover}`
+        } else {
+          return `${UPLOAD_URL}/${cover}`
+        }
+      } else {
+        return null
+      }
+    }
+  }
+
+  static genContentsTree(contents) {
+    if (contents) {
+      const contentsTree = []
+      contents.forEach(c => {
+        c.children = []
+        if (c.pid === '') {
+          contentsTree.push(c)
+        } else {
+          const parent = contents.find(_ => _.navId === c.pid)
+          parent.children.push(c)
+        }
+      })
+      return contentsTree
+    }
   }
 }
 

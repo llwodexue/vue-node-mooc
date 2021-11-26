@@ -79,14 +79,22 @@ configureWebpack: {
 |    |-- api                      // 接口请求
 |    |-- assets                   // 静态资源
 |    |-- components               // 通用组件（通常不包含业务组件）
-|         |-- Pagination.vue      // 分页组件
+|         |-- Pagination          // 分页组件
+|         |-- layout              // 页面布局（全局框架，也可能放在src下)
+|         |-- Screenfull          // 全屏组件
+|         |-- SelectTree          // 树形多选框组件
+|         |-- SizeSelect          // UI尺寸选择组件
 |    |-- directive                // 自定义指令
-|         |-- permission.js       // 权限控制指令
+|         |-- el-drag-dialog      // 模态框拖动指令
+|         |-- permission          // 权限控制指令
+|         |-- waves               // 按钮点击波纹效果
 |    |-- filters                  // 自定义过滤器
-|    |-- icons                    // 图标组件svg 
-|    |-- layout                   // 布局组件（全局框架，也可能放在components里）
+|    |-- icons                    // 图标组件svg
+|    |-- lang                     // 国际化配置
 |    |-- router                   // 路由配置
+|    |-- store                    // 状态管理
 |    |-- mixins                   // 混入组件
+|         |-- auto-height         // 自动设置table和tree高度
 |    |-- styles                   // 公共样式scss
 |    |-- utils                    // 通用工具库
 |         |-- auth.js             // token存取
@@ -94,15 +102,19 @@ configureWebpack: {
 |         |-- get-page-title.js   // 获取页面标题
 |         |-- request.js          // axios请求封装
 |         |-- index.js            // 工具方法
-|    |-- views                    // 业务组件和页面
+|    |-- views                    // 业务页面
+|    |-- viewsComponents          // 单独的业务组件
 |    |-- App.vue                  // 全局入口组件
 |    |-- main.js                  // 全局入口文件
 |    |-- permission.js            // 权限校验
-|    |-- settings.js              // 全局配置参数
+|    |-- settings.js              // 全局配置参数（debugger模式使用前端路由）
 |-- env.development               // 开发环境配置
 |-- env.production                // 生产环境配置
 |-- env.staging                   // 预发布环境
 |-- package.json                  // 项目所需要各种模块及项目的配置信息
+|-- package-lock.json             // 记录当前项目实际安装的各个包版本
+|-- postcss.config.js             // CSS兼容
+|-- README.md                     // 说明文档
 |-- vue.config.js                 // vue配置文件
 ```
 

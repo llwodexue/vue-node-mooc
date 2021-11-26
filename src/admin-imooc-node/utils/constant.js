@@ -4,6 +4,8 @@ const UPLOAD_PATH =
 
 const UPLOAD_URL = env === 'dev' ? 'http://127.0.0.1:8089/admin-upload-ebook' : 'http://www.book.llmysnow.top/admin-upload-ebook'
 
+const OLD_UPLOAD_URL = env === 'dev'? 'http://127.0.0.1:8089/book/res/img' : 'http://www.book.llmysnow.top/book/res/img'
+
 module.exports = {
   CODE_ERROR: -1,
   CODE_SUCCESS: 0,
@@ -14,5 +16,7 @@ module.exports = {
   JWT_EXPIRED: 60 * 60, // token失效时间 1小时,
   UPLOAD_PATH,
   MIME_TYPE_EPUB: 'application/epub',
-  UPLOAD_URL
+  UPLOAD_URL,
+  UPDATE_TYPE_FROM_WEB: 1,
+  OLD_UPLOAD_URL
 }
