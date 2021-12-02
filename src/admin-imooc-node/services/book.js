@@ -1,6 +1,7 @@
 const Book = require('../models/Book')
 const db = require('../db')
 const _ = require('lodash')
+const { reject } = require('lodash')
 
 function exists(book) {
   const { title, author, publisher } = book
@@ -105,4 +106,66 @@ function updateBook(book) {
   })
 }
 
-module.exports = { insertBook, getBook, updateBook }
+async function getCategory() {
+  const sql = 'select * from category order by category asc'
+  const result = await db.querySql(sql)
+  const categoryList = []
+  result.forEach(item => {
+    categoryList.push({
+      label: item.categoryText,
+      value: item.category,
+      num: item.num,
+    })
+  })
+  return categoryList
+}
+
+async function listBook(query) {
+  const { category, title, sort, author, page = 1, pageSize = 20 } = query
+  const offset = (page - 1) * pageSize
+  let bookSql = 'select * from book'
+  let where = 'where'
+  title && (where = db.andLike(where, 'title', title))
+  author && (where = db.andLike(where, 'author', author))
+  category && (where = db.and(where, 'categoryText', category))
+  if (where !== 'where') {
+    bookSql = `${bookSql} ${where}`
+  }
+  if (sort) {
+    const symbol = sort[0]
+    const column = sort.slice(1, sort.length)
+    const order = symbol === '+' ? 'asc' : 'desc'
+    bookSql = `${bookSql} order by \`${column}\` ${order}`
+  }
+  let countSql = 'select count(*) as count from book'
+  if (where !== 'where') {
+    countSql = `${countSql} ${where}`
+  }
+  const count = await db.querySql(countSql)
+  bookSql = `${bookSql} limit ${pageSize} offset ${offset}`
+  const list = await db.querySql(bookSql)
+  list.forEach(book => (book.cover = Book.genCoverUrl(book)))
+  return { list, count: count[0].count, page, pageSize }
+}
+
+function deleteBook(fileName) {
+  return new Promise(async(resolve, reject) => {
+    let book = await getBook(fileName)
+    if (book) {
+      if (+book.updateType === 0) {
+        reject(new Error('内置电子书不能删除'))
+      } else {
+        const bookObj = new Book(null, book)
+        const sql = `delete from book where fileName='${fileName}'`
+        db.querySql(sql).then(() => {
+          bookObj.reset()
+          resolve()
+        })
+      }
+    } else {
+      reject(new Error('电子书不存在'))
+    }
+  })
+}
+
+module.exports = { insertBook, getBook, updateBook, getCategory, listBook, deleteBook }
