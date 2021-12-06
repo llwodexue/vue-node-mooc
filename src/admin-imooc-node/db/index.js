@@ -2,15 +2,14 @@ const mysql = require('mysql')
 const config = require('./config')
 const { DEBUG } = require('../utils/constant')
 const { isObject } = require('../utils')
-const { dbHost, dbPort, dbUser, dbPwd } = require('../utils/constant')
 
 function connect() {
   return mysql.createConnection({
-    host: dbHost,
-    user: dbUser,
-    password: dbPwd,
+    host: config.host,
+    user: config.user,
+    password: config.password,
     database: config.database,
-    port: dbPort,
+    port: config.port,
     multipleStatements: true,
   })
 }
