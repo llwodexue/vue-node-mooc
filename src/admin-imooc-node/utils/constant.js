@@ -1,10 +1,25 @@
 const { env } = require('./env')
-const UPLOAD_PATH =
-  env === 'dev' ? 'E:/upload/admin-upload-ebook' : '/root/upload/admin-upload-ebook'
 
-const UPLOAD_URL = env === 'dev' ? 'http://127.0.0.1:8089/admin-upload-ebook' : 'http://www.book.llmysnow.top/admin-upload-ebook'
+let UPLOAD_PATH, UPLOAD_URL, OLD_UPLOAD_URL
+let dbHost, dbUser, dbPwd
 
-const OLD_UPLOAD_URL = env === 'dev'? 'http://127.0.0.1:8089/book/res/img' : 'http://www.book.llmysnow.top/book/res/img'
+if (env === 'dev') {
+  UPLOAD_PATH = 'E:/upload/admin-upload-ebook'
+  UPLOAD_URL = 'http://127.0.0.1:8089/admin-upload-ebook'
+  OLD_UPLOAD_URL = 'http://127.0.0.1:8089/book/res/img'
+  dbHost = 'localhost'
+  dbUser = 'root'
+  dbPwd = 'root'
+  dbPort = 3008
+} else {
+  UPLOAD_PATH = '/root/nginx/upload/admin-upload-ebook'
+  UPLOAD_URL = 'http://47.95.217.159/admin-upload-ebook'
+  OLD_UPLOAD_URL = 'http://47.95.217.159/book/res/img'
+  dbHost = '47.95.217.159'
+  dbUser = 'root'
+  dbPwd = 'root'
+  dbPort = 3006
+}
 
 module.exports = {
   CODE_ERROR: -1,
@@ -18,5 +33,9 @@ module.exports = {
   MIME_TYPE_EPUB: 'application/epub',
   UPLOAD_URL,
   UPDATE_TYPE_FROM_WEB: 1,
-  OLD_UPLOAD_URL
+  OLD_UPLOAD_URL,
+  dbHost,
+  dbUser,
+  dbPort,
+  dbPwd,
 }
