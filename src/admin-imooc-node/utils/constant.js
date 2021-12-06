@@ -8,8 +8,8 @@ let UPLOAD_PATH, UPLOAD_URL, OLD_UPLOAD_URL
 //   OLD_UPLOAD_URL = 'http://127.0.0.1:8089/book/res/img'
 // } else {
 UPLOAD_PATH = '/root/nginx/upload/admin-upload-ebook'
-UPLOAD_URL = 'http://47.95.217.159/admin-upload-ebook'
-OLD_UPLOAD_URL = 'http://47.95.217.159/book/res/img'
+UPLOAD_URL = 'http://47.95.217.159:8089/admin-upload-ebook'
+OLD_UPLOAD_URL = 'http://47.95.217.159:8089/book/res/img'
 // }
 
 module.exports = {
