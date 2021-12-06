@@ -2,15 +2,15 @@ const { env } = require('../env')
 
 let UPLOAD_PATH, UPLOAD_URL, OLD_UPLOAD_URL
 
-if (env === 'dev') {
-  UPLOAD_PATH = 'E:/upload/admin-upload-ebook'
-  UPLOAD_URL = 'http://127.0.0.1:8089/admin-upload-ebook'
-  OLD_UPLOAD_URL = 'http://127.0.0.1:8089/book/res/img'
-} else {
-  UPLOAD_PATH = '/root/nginx/upload/admin-upload-ebook'
-  UPLOAD_URL = 'http://47.95.217.159/admin-upload-ebook'
-  OLD_UPLOAD_URL = 'http://47.95.217.159/book/res/img'
-}
+// if (env === 'dev') {
+//   UPLOAD_PATH = 'E:/upload/admin-upload-ebook'
+//   UPLOAD_URL = 'http://127.0.0.1:8089/admin-upload-ebook'
+//   OLD_UPLOAD_URL = 'http://127.0.0.1:8089/book/res/img'
+// } else {
+UPLOAD_PATH = '/root/nginx/upload/admin-upload-ebook'
+UPLOAD_URL = 'http://47.95.217.159/admin-upload-ebook'
+OLD_UPLOAD_URL = 'http://47.95.217.159/book/res/img'
+// }
 
 module.exports = {
   CODE_ERROR: -1,
@@ -24,5 +24,5 @@ module.exports = {
   MIME_TYPE_EPUB: 'application/epub',
   UPLOAD_URL,
   UPDATE_TYPE_FROM_WEB: 1,
-  OLD_UPLOAD_URL
+  OLD_UPLOAD_URL,
 }
