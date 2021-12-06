@@ -292,3 +292,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.filter-item {
+  margin-right: 20px;
+}
+</style>
