@@ -19,9 +19,9 @@ const pem = fs.readFileSync('./https/book.llmysnow.top.pem', 'utf8')
 }
 const httpsServer = https.createServer(credentials, app) */
 
-const server = app.listen(3004, () => {
-  const { port, address } = server.address()
-  console.log('running on http://' + address + ':%s', port)
+const server = app.listen(3003, () => {
+  const { port } = server.address()
+  console.log('running on http://127.0.0.1:%s', port)
 })
 /* httpsServer.listen(18082, () => {
   console.log('running on https://127.0.0.1:%s', 18082)
