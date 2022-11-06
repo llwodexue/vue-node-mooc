@@ -18,15 +18,14 @@
             type: String,
             default: 'default message'
           }
-        },
-        name: 'Test'
+        }
       })
-      Vue.component('Test')
+      Vue.component('Test', component)
       new Vue({
         el: '#root',
         data() {
           return {
-            message: "Test Extend Component"
+            message: 'Test Extend Component'
           }
         }
       })

@@ -249,7 +249,7 @@ $emit 传入一个参数事件名称 `event`
       },
       name: 'Test'
     })
-    Vue.component('Test')
+    Vue.component('Test', component)
     new Vue({
       el: '#root',
       data() {
