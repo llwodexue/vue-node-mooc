@@ -1,0 +1,6 @@
+build/*.js
+src/pages/*/assets
+src/pages/*/index.html
+public
+dist
+node_modules
