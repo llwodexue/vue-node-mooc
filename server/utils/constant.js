@@ -8,7 +8,7 @@ if (env === 'dev') {
   UPLOAD_URL = 'http://127.0.0.1:8089/admin-upload-ebook'
   OLD_UPLOAD_URL = 'http://127.0.0.1:8089/book/res/img'
 } else {
-  UPLOAD_PATH = '/root/nginx/upload/admin-upload-ebook'
+  UPLOAD_PATH = '/home/template/upload/admin-upload-ebook'
   UPLOAD_URL = 'http://182.92.10.187:8089/admin-upload-ebook'
   OLD_UPLOAD_URL = 'http://182.92.10.187:8089/book/res/img'
 }
