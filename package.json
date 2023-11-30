@@ -1,0 +1,14 @@
+{
+  "name": "vue-element-node",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --prefix ./pages",
+    "dev": "npm run dev --prefix ./pages",
+    "start": "npm run start --prefix ./server",
+    "start:prod": "npm run start:prod --prefix ./server"
+  },
+  "author": "lyn",
+  "license": "MIT"
+}
